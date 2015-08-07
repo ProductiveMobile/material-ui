@@ -209,13 +209,13 @@ let ListItem = React.createClass({
     let secondaryTextIsAnElement = React.isValidElement(secondaryText);
 
     let mergedRootStyles = this.mergeAndPrefix(styles.root, style);
-    let mergedInnerDivStyles = this.mergeAndPrefix(styles.innerDiv, innerDivStyle);
+    let mergedInnerDivStyles = this.mergeAndPrefix(styles.innerDiv, innerDivStyle, style.innerDivStyle);
     let mergedDivStyles = this.mergeAndPrefix(styles.root, mergedInnerDivStyles, style);
     let mergedLabelStyles = this.mergeAndPrefix(styles.root, mergedInnerDivStyles, styles.label, style);
     let mergedPrimaryTextStyles = primaryTextIsAnElement ?
-      this.mergeStyles(styles.primaryText, primaryText.props.style) : null;
+      this.mergeStyles(styles.primaryText, primaryText.props.style, style.primaryText) : null;
     let mergedSecondaryTextStyles = secondaryTextIsAnElement ?
-      this.mergeStyles(styles.secondaryText, secondaryText.props.style) : null;
+      this.mergeStyles(styles.secondaryText, secondaryText.props.style, style.secondaryText) : null;
 
     let contentChildren = [];
     let nestedListItems = [];
