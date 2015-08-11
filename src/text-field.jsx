@@ -32,6 +32,8 @@ let TextField = React.createClass({
     hintText: React.PropTypes.string,
     id: React.PropTypes.string,
     inputStyle: React.PropTypes.object,
+    underlineStyle: React.PropTypes.object,
+    hintStyle: React.PropTypes.object,
     multiLine: React.PropTypes.bool,
     onBlur: React.PropTypes.func,
     onChange: React.PropTypes.func,
@@ -221,6 +223,8 @@ let TextField = React.createClass({
       className,
       errorStyle,
       errorText,
+      underlineStyle,
+      hintStyle,
       floatingLabelText,
       fullWidth,
       hintText,
@@ -243,7 +247,7 @@ let TextField = React.createClass({
     ) : null;
 
     let hintTextElement = hintText ? (
-      <div style={this.mergeAndPrefix(styles.hint)}>{hintText}</div>
+      <div style={this.mergeAndPrefix(styles.hint, hintStyle)}>{hintText}</div>
     ) : null;
 
     let floatingLabelTextElement = floatingLabelText ? (
@@ -290,11 +294,16 @@ let TextField = React.createClass({
     }
 
     let underlineElement = this.props.disabled ? (
-      <div style={this.mergeAndPrefix(styles.underlineAfter)}></div>
+      <div
+        style={this.mergeAndPrefix(styles.underlineAfter, underlineStyle)}></div>
     ) : (
-      <hr style={this.mergeAndPrefix(styles.underline)}/>
+      <hr
+        style={this.mergeAndPrefix(styles.underline, underlineStyle)}/>
     );
-    let focusUnderlineElement = <hr style={this.mergeAndPrefix(styles.focusUnderline)} />;
+    let focusUnderlineElement = (
+      <hr
+        style={this.mergeAndPrefix(styles.focusUnderline, underlineStyle)} />
+    );
 
     return (
       <div className={className} style={this.mergeAndPrefix(styles.root, this.props.style)}>
