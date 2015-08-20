@@ -1,3 +1,4 @@
+
 let React = require('react');
 let StylePropable = require('../mixins/style-propable');
 let WindowListenable = require('../mixins/window-listenable');
@@ -27,6 +28,9 @@ let DatePickerDialog = React.createClass({
     shouldDisableDate: React.PropTypes.func,
     hideToolbarYearChange: React.PropTypes.bool,
     showYearSelector: React.PropTypes.bool,
+    style: React.PropTypes.object,
+    mode: React.PropTypes.string,
+    autoOk: React.PropTypes.bool,
   },
 
   windowListeners: {
@@ -49,18 +53,18 @@ let DatePickerDialog = React.createClass({
     } = this.props;
 
     let styles = {
-      root: {
+      root: Object.assign({}, style.block, {
         fontSize: 14,
         color: this.context.muiTheme.component.datePicker.calendarTextColor,
-      },
+      }),
 
-      dialogContent: {
+      dialogContent: Object.assign({}, style.__content, {
         width: this.props.mode === 'landscape' ? 560 : 280,
-      },
+      }),
 
-      dialogBodyContent: {
+      dialogBodyContent: Object.assign({}, style.__bodyContent, {
         padding: 0,
-      },
+      }),
 
       actions: {
         marginRight: 8,

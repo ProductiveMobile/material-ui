@@ -1,3 +1,4 @@
+
 let React = require('react');
 let StylePropable = require('../mixins/style-propable');
 let WindowListenable = require('../mixins/window-listenable');
@@ -27,6 +28,7 @@ let DatePicker = React.createClass({
     showYearSelector: React.PropTypes.bool,
     style: React.PropTypes.object,
     textFieldStyle: React.PropTypes.object,
+    dialogStyle: React.PropTypes.object,
   },
 
   windowListeners: {
@@ -69,6 +71,7 @@ let DatePicker = React.createClass({
       showYearSelector,
       style,
       textFieldStyle,
+      dialogStyle,
       ...other,
     } = this.props;
     let defaultInputValue;
@@ -92,6 +95,7 @@ let DatePicker = React.createClass({
           onFocus={this._handleInputFocus}
           onTouchTap={this._handleInputTouchTap}/>
         <DatePickerDialog
+          style={dialogStyle}
           ref="dialogWindow"
           mode={mode}
           initialDate={this.state.dialogDate}
