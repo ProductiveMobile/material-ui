@@ -17,75 +17,15 @@ let {
   Toggle
 } = mui;
 let { Typography } = Styles;
+let CheckboxCode = require('checkbox-code');
+let RadioButtonCode = require('radio-buttons-code');
+let ToggleCode = require('toggle-code');
 
 
 class SwitchesPage extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.codeCheckbox = `
-      <Checkbox
-        name="checkboxName1"
-        value="checkboxValue1"
-        label="went for a run today"/>
-
-      <Checkbox
-        name="checkboxName2"
-        value="checkboxValue2"
-        label="fed the dog"
-        defaultChecked={true}/>
-
-      <Checkbox
-        name="checkboxName3"
-        value="checkboxValue3"
-        label="built a house on the moon"
-        disabled={true}/>
-
-      <Checkbox
-        name="checkboxName4"
-        value="checkboxValue4"
-        checkedIcon={<ToggleStar />}
-        unCheckedIcon={<ToggleStarBorder />}
-        label="custom icon" />
-    `;
-
-    this.codeRadioButton = `
-      <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
-        <RadioButton
-          value="light"
-          label="prepare for light speed"
-          style={{marginBottom:16}} />
-        <RadioButton
-          value="not_light"
-          label="light speed too slow"
-          style={{marginBottom:16}}/>
-        <RadioButton
-          value="ludicrous"
-          label="go to ludicrous speed"
-          style={{marginBottom:16}}
-          disabled={true}/>
-      </RadioButtonGroup>
-    `;
-
-    this.codeToggle = `
-      <Toggle
-        name="toggleName1"
-        value="toggleValue1"
-        label="activate thrusters"/>
-
-      <Toggle
-        name="toggleName2"
-        value="toggleValue2"
-        label="auto-pilot"
-        defaultToggled={true}/>
-
-      <Toggle
-        name="toggleName3"
-        value="toggleValue3"
-        label="initiate self-destruct sequence"
-        disabled={true}/>
-    `;
 
     this.desc = 'These components extend their current input elements (checkbox and radio) and ' +
                'will support all of its props and events. Checkboxes and Toggles support ' +
@@ -167,7 +107,7 @@ class SwitchesPage extends React.Component {
       infoArray: [
         {
           name: 'onCheck',
-          type: 'function(e, checked)',
+          type: 'function(event, checked)',
           header: 'optional',
           desc: 'Callback function that is fired when the checkbox is checked.'
         }
@@ -287,7 +227,7 @@ class SwitchesPage extends React.Component {
       infoArray: [
         {
           name: 'onChange',
-          type: 'function(e, selected)',
+          type: 'function(event, selected)',
           header: 'optional',
           desc: 'Callback function that is fired when a radio button has been clicked. Returns ' +
                 'the event and the value of the radio button that has been selected.'
@@ -370,7 +310,7 @@ class SwitchesPage extends React.Component {
       infoArray: [
         {
           name: 'onToggle',
-          type: 'function(e, toggled)',
+          type: 'function(event, toggled)',
           header: 'optional',
           desc: 'Callback function that is fired when the toggle switch is toggled.'
         }
@@ -411,7 +351,7 @@ class SwitchesPage extends React.Component {
         <Tab label="Checkbox">
           <ComponentDoc
             name=""
-            code={this.codeCheckbox}
+            code={CheckboxCode}
             desc={this.desc}
             componentInfo={this.componentInfo.slice(0,3)}>
             <ClearFix elementType="form">
@@ -422,7 +362,7 @@ class SwitchesPage extends React.Component {
         <Tab label="RadioButtons">
           <ComponentDoc
             name=""
-            code={this.codeRadioButton}
+            code={RadioButtonCode}
             desc={this.desc}
             componentInfo={this.componentInfo.slice(3,7)}>
             <ClearFix elementType="form">
@@ -433,7 +373,7 @@ class SwitchesPage extends React.Component {
         <Tab label="Toggle">
           <ComponentDoc
             name=""
-            code={this.codeToggle}
+            code={ToggleCode}
             desc={this.desc}
             componentInfo={this.componentInfo.slice(7)}>
             <ClearFix elementType="form">
@@ -542,15 +482,15 @@ class SwitchesPage extends React.Component {
     );
   }
 
-  _onCheck(e, checked) {
+  _onCheck(event, checked) {
     console.log('Checked: ', checked);
   }
 
-  _onToggle(e, toggled) {
+  _onToggle(event, toggled) {
     console.log('Toggled: ', toggled);
   }
 
-  _onRadioButtonClick(e, selected) {
+  _onRadioButtonClick(event, selected) {
     console.log('Selected: ', selected);
   }
 }

@@ -1,7 +1,7 @@
 let React = require('react');
 let { DatePicker, TextField, Toggle } = require('material-ui');
 let ComponentDoc = require('../../component-doc');
-
+let Code = require('date-picker-code');
 
 class DatePickerPage extends React.Component {
   constructor(props) {
@@ -25,27 +25,6 @@ class DatePickerPage extends React.Component {
 
   render() {
 
-    let code =
-      '//Portrait Dialog\n' +
-      '<DatePicker\n' +
-      '  hintText="Portrait Dialog"\n\n' +
-      '//Landscape Dialog\n' +
-      '<DatePicker\n' +
-      '  hintText="Landscape Dialog"\n' +
-      '  mode="landscape"/>\n\n' +
-      '//Controlled Input\n' +
-      '<DatePicker\n' +
-      '  hintText="Controlled Date Input"\n' +
-      '  value={this.state.controlledDate}\n' +
-      '  onChange={this._handleChange} />\n\n' +
-      '// Ranged Date Picker\n' +
-      '<DatePicker\n' +
-      '  hintText="Ranged Date Picker"\n' +
-      '  autoOk={this.state.autoOk}\n' +
-      '  minDate={this.state.minDate}\n' +
-      '  maxDate={this.state.maxDate}\n' +
-      '  showYearSelector={this.state.showYearSelector} />';
-
     let componentInfo = [
       {
         name: 'Props',
@@ -60,7 +39,8 @@ class DatePickerPage extends React.Component {
             name: 'defaultDate',
             type: 'date object',
             header: 'optional',
-            desc: 'This is the initial date value of the component.'
+            desc: 'This is the initial date value of the component. If either `value` or `valueLink` ' +
+            'is provided they will override this prop with `value` taking precedence.'
           },
           {
             name: 'formatDate',
@@ -136,6 +116,18 @@ class DatePickerPage extends React.Component {
             name: 'setDate',
             header: 'DatePicker.setDate(d)',
             desc: 'Sets the date value to d, where d is a date object.'
+          },
+          {
+            name: 'openDialog',
+            header: 'DatePicker.openDialog()',
+            desc: 'Opens the date-picker dialog programmatically. Use this if you want to open the ' +
+            'dialog in response to some event other than focus/tap on the input field, such as an ' +
+            'external button click.'
+          },
+          {
+            name: 'focus',
+            header: 'DatePicker.focus()',
+            desc: 'An alias for the `openDialog()` method to allow more generic use alongside `TextField`.'
           }
         ]
       },
@@ -162,7 +154,7 @@ class DatePickerPage extends React.Component {
     return (
       <ComponentDoc
         name="Date Picker"
-        code={code}
+        code={Code}
         componentInfo={componentInfo}>
 
         <DatePicker

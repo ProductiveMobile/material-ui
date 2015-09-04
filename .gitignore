@@ -1,6 +1,10 @@
 node_modules
 npm-debug.log
 build
+coverage
 
 # Exclude IDE project folders
 .idea
+
+# OS files
+.DS_STORE

@@ -1,6 +1,7 @@
 let React = require('react');
 let { LeftNav, MenuItem, RaisedButton } = require('material-ui');
 let ComponentDoc = require('../../component-doc');
+let Code = require('left-nav-code');
 
 
 class LeftNavPage extends React.Component {
@@ -26,39 +27,17 @@ class LeftNavPage extends React.Component {
       { type: MenuItem.Types.LINK, payload: 'https://www.google.com', text: 'Disabled Link', disabled: true }
     ];
 
-    let code =
-      'menuItems = [\n' +
-      '  { route: \'get-started\', text: \'Get Started\' },\n' +
-      '  { route: \'customization\', text: \'Customization\' },\n' +
-      '  { route: \'components\', text: \'Components\' },\n' +
-      '  { type: MenuItem.Types.SUBHEADER, text: \'Resources\' },\n' +
-      '  { \n' +
-      '     type: MenuItem.Types.LINK, \n' +
-      '     payload: \'https://github.com/callemall/material-ui\', \n' +
-      '     text: \'GitHub\' \n' +
-      '  },\n' +
-      '  { \n' +
-      '     text: \'Disabled\', \n' +
-      '     disabled: true \n' +
-      '  },\n' +
-      '  { \n' +
-      '     type: MenuItem.Types.LINK, \n' +
-      '     payload: \'https://www.google.com\', \n' +
-      '     text: \'Disabled Link\', \n' +
-      '     disabled: true \n' +
-      '  },\n' +
-      '];\n\n' +
-      '//Toggle the LeftNav\n'+
-      'this.refs.leftNav.toggle();\n\n'+
-      '//Docked Left Nav\n' +
-      '<LeftNav ref="leftNav" menuItems={menuItems} />\n\n' +
-      '//Hideable Left Nav\n' +
-      '<LeftNav ref="leftNav" docked={false} menuItems={menuItems} />\n\n';
-
     let componentInfo = [
       {
         name: 'Props',
         infoArray: [
+          {
+            name: 'disableSwipeToOpen',
+            type: 'bool',
+            header: 'default: false',
+            desc: 'Indicates whether swiping sideways when the nav is closed ' +
+              'should open the nav.'
+          },
           {
             name: 'docked',
             type: 'bool',
@@ -97,6 +76,24 @@ class LeftNavPage extends React.Component {
             type: 'object',
             header: 'optional',
             desc: 'Override the inline-styles of LeftNav\'s root element.'
+          },
+          {
+            name: 'menuItemClassName',
+            type: 'string',
+            header: 'optional',
+            desc: 'Class name for the menuItem.'
+          },
+          {
+            name: 'menuItemClassNameSubheader',
+            type: 'string',
+            header: 'optional',
+            desc: 'Class name for the subheader menuItem.'
+          },
+          {
+            name: 'menuItemClassNameLink',
+            type: 'string',
+            header: 'optional',
+            desc: 'Class name for the link menuItem.'
           }
         ]
       },
@@ -122,7 +119,8 @@ class LeftNavPage extends React.Component {
             name: 'onChange',
             header: 'function(e, selectedIndex, menuItem)',
             desc: 'Fired when a menu item is clicked that is not the one currently ' +
-              'selected.'
+              'selected. Note that this requires the injectTapEventPlugin component. ' +
+              'See the "Get Started" section for more detail.'
           },
           {
             name: 'onNavOpen',
@@ -141,7 +139,7 @@ class LeftNavPage extends React.Component {
     return (
       <ComponentDoc
         name="Left Nav"
-        code={code}
+        code={Code}
         componentInfo={componentInfo}>
 
         <div>

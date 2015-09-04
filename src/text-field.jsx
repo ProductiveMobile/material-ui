@@ -42,6 +42,7 @@ let TextField = React.createClass({
     onKeyDown: React.PropTypes.func,
     rows: React.PropTypes.number,
     type: React.PropTypes.string,
+    underlineStyle: React.PropTypes.object,
   },
 
   getDefaultProps() {
@@ -162,6 +163,9 @@ let TextField = React.createClass({
       },
     };
 
+    styles.error = this.mergeAndPrefix(styles.error, props.errorStyle);
+    styles.underline = this.mergeAndPrefix(styles.underline, props.underlineStyle);
+
     styles.floatingLabel = this.mergeStyles(styles.hint, {
       lineHeight: '22px',
       top: 38,
@@ -207,11 +211,11 @@ let TextField = React.createClass({
       styles.hint.lineHeight = props.style.height;
     }
 
-    if (this.state.errorText && this.state.isFocused) styles.floatingLabel.color = theme.errorColor;
+    if (this.state.errorText && this.state.isFocused) styles.floatingLabel.color = styles.error.color;
     if (props.floatingLabelText && !props.multiLine) styles.input.paddingTop = 26;
 
     if (this.state.errorText) {
-      styles.focusUnderline.borderColor = theme.errorColor;
+      styles.focusUnderline.borderColor = styles.error.color;
       styles.focusUnderline.transform = 'scaleX(1)';
     }
 
@@ -243,7 +247,7 @@ let TextField = React.createClass({
     let inputId = id || this._uniqueId;
 
     let errorTextElement = this.state.errorText ? (
-      <div style={this.mergeAndPrefix(styles.error, errorStyle)}>{this.state.errorText}</div>
+      <div style={styles.error}>{this.state.errorText}</div>
     ) : null;
 
     let hintTextElement = hintText ? (
