@@ -1,12 +1,12 @@
-let React = require('react');
-let CssEvent = require('./utils/css-event');
-let StylePropable = require('./mixins/style-propable');
-let Transitions = require('./styles/transitions');
-let ClickAwayable = require('./mixins/click-awayable');
-let FlatButton = require('./flat-button');
+const React = require('react');
+const CssEvent = require('./utils/css-event');
+const StylePropable = require('./mixins/style-propable');
+const Transitions = require('./styles/transitions');
+const ClickAwayable = require('./mixins/click-awayable');
+const FlatButton = require('./flat-button');
 
 
-let Snackbar = React.createClass({
+const Snackbar = React.createClass({
 
   mixins: [StylePropable, ClickAwayable],
 
@@ -24,6 +24,8 @@ let Snackbar = React.createClass({
     action: React.PropTypes.string,
     autoHideDuration: React.PropTypes.number,
     onActionTouchTap: React.PropTypes.func,
+    onShow: React.PropTypes.func,
+    onDismiss: React.PropTypes.func,
     openOnMount: React.PropTypes.bool,
   },
 
@@ -31,6 +33,13 @@ let Snackbar = React.createClass({
     return {
       open: this.props.openOnMount || false,
     };
+  },
+
+  componentDidMount() {
+    if (this.props.openOnMount) {
+      this._setAutoHideTimer();
+      this._bindClickAway();
+    }
   },
 
   componentClickAway() {
@@ -53,6 +62,11 @@ let Snackbar = React.createClass({
     }
   },
 
+  componentWillUnmount() {
+    this._clearAutoHideTimer();
+    this._unbindClickAway();
+  },
+
   getTheme() {
     return this.context.muiTheme.component.snackbar;
   },
@@ -62,7 +76,7 @@ let Snackbar = React.createClass({
   },
 
   getStyles() {
-    let styles = {
+    const styles = {
       root: {
         color: this.getTheme().textColor,
         backgroundColor: this.getTheme().backgroundColor,
@@ -112,37 +126,40 @@ let Snackbar = React.createClass({
   },
 
   render() {
-    let styles = this.getStyles();
+    const {action, message, onActionTouchTap, style, ...others } = this.props;
+    const styles = this.getStyles();
 
-    let action;
-    if (this.props.action) {
-      action = (
+    const rootStyles = this.state.open ?
+      this.mergeStyles(styles.root, styles.rootWhenOpen, style) :
+      this.mergeStyles(styles.root, style);
+
+    let actionButton;
+    if (action) {
+      actionButton = (
         <FlatButton
           style={styles.action}
-          label={this.props.action}
-          onTouchTap={this.props.onActionTouchTap} />
+          label={action}
+          onTouchTap={onActionTouchTap} />
       );
     }
 
-    let rootStyles = this.state.open ?
-      this.mergeStyles(styles.root, styles.rootWhenOpen, this.props.style) :
-      this.mergeStyles(styles.root, this.props.style);
-
     return (
-      <span style={rootStyles}>
-          <span>{this.props.message}</span>
-          {action}
+      <span {...others} style={rootStyles}>
+        <span>{message}</span>
+        {actionButton}
       </span>
     );
   },
 
   show() {
     this.setState({ open: true });
+    if (this.props.onShow) this.props.onShow();
   },
 
   dismiss() {
     this._clearAutoHideTimer();
     this.setState({ open: false });
+    if (this.props.onDismiss) this.props.onDismiss();
   },
 
   _clearAutoHideTimer() {
