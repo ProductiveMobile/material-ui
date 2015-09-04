@@ -32,7 +32,6 @@ let TextField = React.createClass({
     hintText: React.PropTypes.string,
     id: React.PropTypes.string,
     inputStyle: React.PropTypes.object,
-    underlineStyle: React.PropTypes.object,
     hintStyle: React.PropTypes.object,
     multiLine: React.PropTypes.bool,
     onBlur: React.PropTypes.func,
