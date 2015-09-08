@@ -20,11 +20,13 @@ let Tabs = React.createClass({
     initialSelectedIndex: React.PropTypes.number,
     inkBarStyle: React.PropTypes.object,
     tabItemContainerStyle: React.PropTypes.object,
+    tabsPosition: React.PropTypes.oneOf(['top', 'bottom']),
   },
 
   getDefaultProps() {
     return {
       initialSelectedIndex : 0,
+      tabsPosition: 'top',
     };
   },
 
@@ -134,19 +136,25 @@ let Tabs = React.createClass({
     let inkBarContainerWidth = tabItemContainerStyle ?
       tabItemContainerStyle.width : '100%';
 
+    let content = [
+      <div style={this.mergeAndPrefix(styles.tabItemContainer, tabItemContainerStyle)} key='tabs'>
+        {tabs}
+      </div>,
+      <div style={{width: inkBarContainerWidth}} key='ink-bar'>
+        {inkBar}
+      </div>,
+      <div style={this.mergeAndPrefix(contentContainerStyle)} key='content'>
+        {tabContent}
+      </div>,
+    ];
+
+    if (this.props.tabsPosition === 'bottom') {
+      content = content.reverse();
+    }
+
     return (
-      <div
-        {...other}
-        style={this.mergeAndPrefix(style)}>
-        <div style={this.mergeAndPrefix(styles.tabItemContainer, tabItemContainerStyle)}>
-          {tabs}
-        </div>
-        <div style={{width: inkBarContainerWidth}}>
-         {inkBar}
-        </div>
-        <div style={this.mergeAndPrefix(contentContainerStyle)}>
-          {tabContent}
-        </div>
+      <div {...other} style={this.mergeAndPrefix(style)}>
+        {content}
       </div>
     );
   },
