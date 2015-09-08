@@ -130,6 +130,7 @@ let Tabs = React.createClass({
       <InkBar
         left={left}
         width={width}
+        position={this.props.tabsPosition}
         style={inkBarStyle}/>
     ) : null;
 
