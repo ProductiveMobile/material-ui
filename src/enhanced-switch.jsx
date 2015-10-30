@@ -9,6 +9,12 @@ let FocusRipple = require('./ripples/focus-ripple');
 let TouchRipple = require('./ripples/touch-ripple');
 let Paper = require('./paper');
 
+const TRANSITION = Transitions.easeOut('450ms', [
+  'background-color',
+  'left',
+  'margin-left',
+  'opacity',
+]);
 
 let EnhancedSwitch = React.createClass({
 
@@ -147,7 +153,7 @@ let EnhancedSwitch = React.createClass({
         color: this.getTheme().textColor,
       },
       wrap: {
-        transition: Transitions.easeOut(),
+        transition: TRANSITION,
         float: 'left',
         position: 'relative',
         display: 'block',
