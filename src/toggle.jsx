@@ -4,6 +4,13 @@ let Transitions = require('./styles/transitions');
 let Paper = require('./paper');
 let EnhancedSwitch = require('./enhanced-switch');
 
+const TRANSITION = Transitions.easeOut('450ms', [
+  'background-color',
+  'left',
+  'margin-left',
+  'opacity',
+]);
+
 
 let Toggle = React.createClass({
 
@@ -47,14 +54,14 @@ let Toggle = React.createClass({
         width: toggleTrackWidth,
       },
       track: {
-          transition: Transitions.easeOut(),
+          transition: TRANSITION,
           width: '100%',
           height: 14,
           borderRadius: 30,
           backgroundColor: this.getTheme().trackOffColor,
       },
       thumb: {
-        transition: Transitions.easeOut(),
+        transition: TRANSITION,
         position: 'absolute',
         top: 1,
         left: 0,
